@@ -114,30 +114,11 @@ resultsBtn.addEventListener('click', showResults);
 
 
 
-let names = [];
-let votes = [];
-
-for(let i = 0; i < Product.allProducts.length; i++){
-  names.push(Product.allProducts[i].name);
-  votes.push(Product.allProducts[i].votes);
-}
-
-let ctx = document.getElementById('resultsChart');
-
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: names,
-    datasets: [{
-      label: 'Votes',
-      data: votes
-    }]
-  }
-});
-
 function showResults(){
 
   let ul = document.getElementById('results-list');
+
+  ul.innerHTML = '';
 
   let names = [];
   let votes = [];
