@@ -9,3 +9,9 @@ img{
   width:200px;
   cursor:pointer;
 }
+
+canvas{
+  max-width:900px;
+  margin:40px auto;
+  display:block;
+}

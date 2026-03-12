@@ -143,7 +143,7 @@ function showResults(){
     votes.push(product.votes);
   }
 
-  let ctx = document.getElementById('resultsChart');
+  let ctx = document.getElementById('resultsChart').getContext('2d');
 
   new Chart(ctx, {
     type: 'bar',
@@ -151,8 +151,14 @@ function showResults(){
       labels: names,
       datasets: [{
         label: 'Votes',
-        data: votes
+        data: votes,
+        backgroundColor: 'rgba(54,162,235,0.6)',
+        borderColor: 'rgba(54,162,235,1)',
+        borderWidth: 2
       }]
+    },
+    options: {
+      responsive: true
     }
   });
 
