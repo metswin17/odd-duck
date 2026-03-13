@@ -32,3 +32,18 @@ canvas{
   padding: 10px;
   border-radius: 6px;
 }
+#results-btn{
+  display:block;
+  margin:30px auto;
+  padding:12px 20px;
+  font-size:16px;
+  background-color:#4CAF50;
+  color:white;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+#results-btn:hover{
+  background-color:#3e8e41;
+}
