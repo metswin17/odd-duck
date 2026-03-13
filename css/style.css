@@ -15,3 +15,20 @@ canvas{
   margin:40px auto;
   display:block;
 }
+
+#results-list{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 900px;
+  margin: 40px auto;
+  list-style: none;
+  padding: 0;
+}
+
+#results-list li{
+  text-align: center;
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 6px;
+}
