@@ -20,6 +20,8 @@ function getFromLocalStorage() {
   let data = localStorage.getItem('products');
 
   if (data) {
+    Product.allProducts = []; // ✅ CLEAR ARRAY FIRST
+
     let parsedProducts = JSON.parse(data);
 
     for (let item of parsedProducts) {

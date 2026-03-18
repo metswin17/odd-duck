@@ -28,16 +28,18 @@ canvas{
 
 #results-list li{
   text-align: center;
-  background: #f4f4f4;
+  background: #e6e6e6;   /* slightly darker */
+  color: #222;           /* darker text */
   padding: 10px;
   border-radius: 6px;
+  border: 1px solid #999; /* improves contrast */
 }
 #results-btn{
   display:block;
   margin:30px auto;
   padding:12px 20px;
   font-size:16px;
-  background-color:#4CAF50;
+  background-color:#2e7d32;
   color:white;
   border:none;
   border-radius:6px;
@@ -46,4 +48,15 @@ canvas{
 
 #results-btn:hover{
   background-color:#3e8e41;
+}
+
+#results-list li:hover{
+  background-color: #d1f7d6;
+  transform: scale(1.05);
+  transition: 0.2s;
+}
+
+header {
+  background-color: #0f6a38;
+  color: #ffffff;
 }
