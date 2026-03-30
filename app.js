@@ -20,43 +20,47 @@ function getFromLocalStorage() {
   let data = localStorage.getItem('products');
 
   if (data) {
-    Product.allProducts = []; // ✅ CLEAR ARRAY FIRST
-
-    let parsedProducts = JSON.parse(data);
-
-    for (let item of parsedProducts) {
-      let newProduct = new Product(item.name, item.filePath);
-      newProduct.votes = item.votes;
-      newProduct.views = item.views;
+    let parsed = JSON.parse(data);
+  
+    // ✅ Check if data is valid
+    if (parsed.length && parsed[0].filePath) {
+      Product.allProducts = [];
+  
+      for (let item of parsed) {
+        let newProduct = new Product(item.name, item.filePath);
+        newProduct.votes = item.votes;
+        newProduct.views = item.views;
+      }
+    } else {
+      // ❌ corrupted → reset
+      localStorage.removeItem('products');
+      location.reload();
     }
+  
+  } else {
+    // normal creation
+    new Product('bag', 'images/bag.jpg');
+    new Product('banana', 'images/banana.jpg');
+    new Product('bathroom', 'images/bathroom.jpg');
+    new Product('boots', 'images/boots.jpg');
+    new Product('breakfast', 'images/breakfast.jpg');
+    new Product('bubblegum', 'images/bubblegum.jpg');
+    new Product('chair', 'images/chair.jpg');
+    new Product('cthulhu', 'images/cthulhu.jpg');
+    new Product('dog-duck', 'images/dog-duck.jpg');
+    new Product('dragon', 'images/dragon.jpg');
+    new Product('pen', 'images/pen.jpg');
+    new Product('pet-sweep', 'images/pet-sweep.jpg');
+    new Product('scissors', 'images/scissors.jpg');
+    new Product('shark', 'images/shark.jpg');
+    new Product('sweep', 'images/sweep.jpg');
+    new Product('tauntaun', 'images/tauntaun.jpg');
+    new Product('unicorn', 'images/unicorn.jpg');
+    new Product('water-can', 'images/water-can.jpg');
+    new Product('wine-glass', 'images/wine-glass.jpg');
   }
+
 }
-
-
-if (localStorage.getItem('products')) {
-  getFromLocalStorage();
-} else {
-  new Product('bag', 'images/bag.jpg');
-  new Product('banana', 'images/banana.jpg');
-  new Product('bathroom', 'images/bathroom.jpg');
-  new Product('boots', 'images/boots.jpg');
-  new Product('breakfast', 'images/breakfast.jpg');
-  new Product('bubblegum', 'images/bubblegum.jpg');
-  new Product('chair', 'images/chair.jpg');
-  new Product('cthulhu', 'images/cthulhu.jpg');
-  new Product('dog-duck', 'images/dog-duck.jpg');
-  new Product('dragon', 'images/dragon.jpg');
-  new Product('pen', 'images/pen.jpg');
-  new Product('pet-sweep', 'images/pet-sweep.jpg');
-  new Product('scissors', 'images/scissors.jpg');
-  new Product('shark', 'images/shark.jpg');
-  new Product('sweep', 'images/sweep.jpg');
-  new Product('tauntaun', 'images/tauntaun.jpg');
-  new Product('unicorn', 'images/unicorn.jpg');
-  new Product('water-can', 'images/water-can.jpg');
-  new Product('wine-glass', 'images/wine-glass.jpg');
-}
-
 function getRandomIndex() {
   return Math.floor(Math.random() * Product.allProducts.length);
 }
@@ -70,19 +74,22 @@ function renderImages() {
   let index1;
   let index2;
   let index3;
+  let attempts = 0;
 
   do {
     index1 = getRandomIndex();
     index2 = getRandomIndex();
     index3 = getRandomIndex();
+    attempts++;
 
   } while (
-    index1 === index2 ||
-    index1 === index3 ||
-    index2 === index3 ||
-    previousImages.includes(index1) ||
-    previousImages.includes(index2) ||
-    previousImages.includes(index3)
+    (index1 === index2 ||
+     index1 === index3 ||
+     index2 === index3 ||
+     previousImages.includes(index1) ||
+     previousImages.includes(index2) ||
+     previousImages.includes(index3)) &&
+     attempts < 50
   );
 
   previousImages = [index1, index2, index3];
@@ -90,6 +97,12 @@ function renderImages() {
   let product1 = Product.allProducts[index1];
   let product2 = Product.allProducts[index2];
   let product3 = Product.allProducts[index3];
+
+  // ✅ NOW check AFTER assignment
+  if (!product1 || !product2 || !product3) {
+    console.error("Product undefined!", Product.allProducts);
+    return;
+  }
 
   img1.src = product1.filePath;
   img2.src = product2.filePath;
@@ -103,6 +116,9 @@ function renderImages() {
   product2.views++;
   product3.views++;
 }
+
+getFromLocalStorage();
+
 let previousImages = [];
 
 renderImages();
